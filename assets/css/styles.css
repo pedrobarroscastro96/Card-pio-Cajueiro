@@ -1,0 +1,3356 @@
+/* =====================================================================
+   TEXAS — CARDÁPIO DIGITAL & HUB NFC
+   Design System Light Theme: Leve, Limpo, Sofisticado e Minimalista
+   ===================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  /* 1. Paleta de Superfícies (Branco Minimalista & Limpo) */
+  --bg-main: #FFFFFF;             /* Fundo 100% branco e arejado */
+  --bg-main-alt: #FAF6F6;         /* Off-white com leve nuance vinho nobre */
+  --bg-card: #FFFFFF;             /* Cartões brancos para destaque limpo dos itens */
+  --bg-card-hover: #FDF9F9;       /* Micro-hover suave */
+  --bg-input: #FAF5F5;            /* Fundo suave para inputs */
+  --bg-chip: #F5EEEE;             /* Chips inativos com toque suave de vinho */
+  --bg-chip-hover: #ECE2E2;       /* Hover dos chips */
+  --bg-glass: rgba(255, 255, 255, 0.94); /* Vidro fosco translúcido no topo */
+
+  /* 2. Cores da Marca — Hamburgueria Texas (Vinho Rústico Protagonista) */
+  --brand-terracotta: #4A121A;        /* Tom vinho/bordô encorpado como cor principal de ação */
+  --brand-terracotta-hover: #380C13;  /* Vinho mais escuro e imponente para hover/clique */
+  --brand-terracotta-light: #F7EBEB;  /* Fundo sutil avermelhado para ícones e tags */
+  --brand-terracotta-border: #E8CFD2; /* Borda delicada com tom de vinho suave */
+  --brand-amber: #E89D35;             /* Mostarda/ouro texano para selos e estrelas */
+
+  /* 3. Selo de Mesa e Status (Verde Sálvia) */
+  --status-table-bg: #EAF6EE;
+  --status-table-border: #C6E7D2;
+  --status-table-text: #237841;
+  --status-table-dot: #2E9B54;
+
+  /* 4. Tipografia & Hierarquia de Contraste */
+  --text-primary: #241114;          /* Marrom/vinho bem escuro de alto contraste */
+  --text-heading: #4A121A;          /* Vinho forte nos títulos, seções e categorias */
+  --text-secondary: #6E5356;        /* Ingredientes e descrições técnicas */
+  --text-dim: #997E81;              /* Placeholders e textos discretos */
+  --text-white: #FFFFFF;            /* Texto branco sobre botões vinho */
+
+  /* 5. Bordas e Sombras Suaves */
+  --border-subtle: #EFE6E6;         /* Linha sutil padrão */
+  --border-divider: #F6EEEE;        /* Divisores internos */
+  --border-focus: #4A121A;          /* Anel de foco no tom vinho da marca */
+
+  --shadow-sm: 0 2px 8px rgba(74, 18, 26, 0.04);
+  --shadow-card: 0 4px 20px rgba(74, 18, 26, 0.05);
+  --shadow-card-hover: 0 8px 26px rgba(74, 18, 26, 0.08);
+  --shadow-drawer: 0 -10px 40px rgba(74, 18, 26, 0.12);
+  --shadow-modal: 0 16px 40px rgba(74, 18, 26, 0.14);
+
+  /* 6. Medidas e Geometria */
+  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  --header-height: 64px;
+  --category-bar-height: 56px;
+  --touch-target: 44px;
+}
+
+/* =====================================================================
+   RESET E BASE
+   ===================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  padding-bottom: env(safe-area-inset-bottom, 20px);
+}
+
+img, video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+button, a, input {
+  font-family: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* =====================================================================
+   CONTAINER DO APP (MOBILE-FIRST)
+   ===================================================================== */
+.app-container {
+  width: 100%;
+  max-width: 580px;
+  margin: 0 auto;
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-main);
+}
+
+/* =====================================================================
+   1. HUB DE ENTRADA (INDEX.HTML / LINKTREE DA MESA)
+   ===================================================================== */
+.hub-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 48px 20px 32px 20px;
+  padding-top: max(48px, env(safe-area-inset-top, 32px));
+  position: relative;
+  z-index: 1;
+}
+
+/* Identidade Centralizada do Sobrado (Clean & Minimalista) */
+.hub-identity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 30px;
+  position: relative;
+  z-index: 2;
+}
+
+.hub-logo-box {
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  padding: 4px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 8px 28px rgba(31, 30, 28, 0.08);
+  margin-bottom: 16px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hub-logo-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(31, 30, 28, 0.12);
+}
+
+.hub-logo-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #FFFFFF;
+}
+
+.hub-title {
+  font-family: var(--font-heading);
+  font-size: 1.85rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.hub-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+/* Selo de Mesa Ativa Clean */
+.table-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--status-table-bg);
+  border: 1px solid var(--status-table-border);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--status-table-text);
+  box-shadow: 0 2px 6px rgba(35, 120, 65, 0.06);
+}
+
+.table-badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--status-table-dot);
+  box-shadow: 0 0 6px rgba(46, 155, 84, 0.5);
+  animation: pulseGreen 2.2s infinite ease-in-out;
+}
+
+@keyframes pulseGreen {
+  0%, 100% { transform: scale(0.9); opacity: 0.85; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+
+/* Lista de Ações do Hub */
+.hub-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  margin-bottom: 28px;
+}
+
+.hub-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 68px;
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-card);
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease, border-color 0.18s ease;
+  position: relative;
+}
+
+.hub-btn:hover {
+  box-shadow: var(--shadow-card-hover);
+  border-color: #DFDBD3;
+  transform: translateY(-1px);
+}
+
+.hub-btn:active {
+  transform: scale(0.985);
+}
+
+.hub-btn-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.hub-btn-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  background-color: var(--bg-main-alt);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.hub-btn-text {
+  text-align: left;
+}
+
+.hub-btn-title {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+
+.hub-btn-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-top: 3px;
+}
+
+.hub-btn-arrow {
+  color: var(--text-dim);
+  font-size: 1.15rem;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.hub-btn:hover .hub-btn-arrow {
+  transform: translateX(3px);
+  color: var(--brand-terracotta);
+}
+
+/* Botão 1: Ver Cardápio (Ação Principal com Acento Terracota Nobre) */
+.hub-btn-primary {
+  border-color: var(--brand-terracotta-border);
+  background-color: #FFFFFF;
+}
+
+.hub-btn-primary .hub-btn-icon {
+  background-color: var(--brand-terracotta-light);
+  border-color: var(--brand-terracotta-border);
+  color: var(--brand-terracotta);
+}
+
+.hub-btn-primary .hub-btn-title {
+  color: var(--brand-terracotta);
+}
+
+.hub-btn-primary .hub-btn-arrow {
+  color: var(--brand-terracotta);
+}
+
+/* Botão 2: Instagram */
+.hub-btn-instagram .hub-btn-icon {
+  background: linear-gradient(135deg, #FFF0F5 0%, #FFE4E6 100%);
+  border-color: #FBCFE8;
+  color: #E1306C;
+}
+
+/* Botão 3: Wi-Fi */
+.hub-btn-wifi .hub-btn-icon {
+  background-color: #F7F5F0;
+  color: var(--text-primary);
+}
+
+/* Botão 4: Avaliação no Google & Estilos Link-Card */
+.link-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 68px;
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-card);
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease, border-color 0.18s ease;
+  position: relative;
+  text-decoration: none;
+  gap: 14px;
+}
+
+.link-card:hover {
+  box-shadow: var(--shadow-card-hover);
+  border-color: #DFDBD3;
+  transform: translateY(-1px);
+}
+
+.link-card:active {
+  transform: scale(0.985);
+}
+
+.link-icon-wrapper {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  border: 1px solid rgba(229, 160, 0, 0.25);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.link-card:hover .link-icon-wrapper {
+  transform: scale(1.05);
+}
+
+.link-info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  flex: 1;
+}
+
+.link-title {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+
+.link-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-top: 3px;
+}
+
+.link-arrow {
+  color: var(--text-dim);
+  flex-shrink: 0;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.link-card:hover .link-arrow {
+  transform: translateX(3px);
+  color: #E5A000;
+}
+
+/* Rodapé do Hub */
+.hub-footer {
+  margin-top: auto;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.hub-footer-text {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.hub-footer-badge {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--brand-terracotta);
+  background-color: var(--brand-terracotta-light);
+  border: 1px solid var(--brand-terracotta-border);
+  padding: 3px 12px;
+  border-radius: var(--radius-full);
+}
+
+/* =====================================================================
+   2. CARDÁPIO DIGITAL (CARDAPIO.HTML)
+   ===================================================================== */
+
+/* Header Compacto Sticky */
+.menu-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--header-height);
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-back-hub {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.1s ease, border-color 0.15s ease;
+}
+
+.btn-back-hub:active {
+  transform: scale(0.92);
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-logo-mini {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid var(--border-subtle);
+  background-color: #FFFFFF;
+}
+
+.header-title-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-title {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.1;
+  letter-spacing: -0.3px;
+}
+
+.header-desc {
+  font-size: 0.74rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-table-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--status-table-bg);
+  border: 1px solid var(--status-table-border);
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--status-table-text);
+}
+
+.header-wifi-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.1s ease;
+}
+
+.header-wifi-btn:active {
+  transform: scale(0.92);
+}
+
+.header-admin-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.1s ease, border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+  cursor: pointer;
+}
+
+.header-admin-btn:hover {
+  border-color: #DFDBD3;
+  color: var(--brand-terracotta);
+}
+
+.header-admin-btn:active {
+  transform: scale(0.92);
+}
+
+body.admin-mode-active .header-admin-btn,
+.header-admin-btn.active {
+  background-color: var(--brand-terracotta-light);
+  border-color: var(--brand-terracotta-border);
+  color: var(--brand-terracotta);
+}
+
+.header-cart-btn {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.1s ease, border-color 0.15s ease;
+  cursor: pointer;
+}
+
+.header-cart-btn:active {
+  transform: scale(0.92);
+}
+
+.cart-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 19px;
+  height: 19px;
+  padding: 0 5px;
+  border-radius: var(--radius-full);
+  background-color: var(--brand-terracotta);
+  color: #FFFFFF;
+  font-size: 0.72rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(200, 90, 23, 0.45);
+  border: 2px solid #FFFFFF;
+  line-height: 1;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Barra de Pesquisa Rápida */
+.search-container {
+  padding: 14px 16px 8px 16px;
+  position: relative;
+}
+
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0 14px;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-input-wrapper:focus-within {
+  border-color: var(--brand-terracotta);
+  box-shadow: 0 0 0 3px rgba(200, 90, 23, 0.12);
+}
+
+.search-icon {
+  color: var(--text-dim);
+  font-size: 1.05rem;
+  margin-right: 10px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  width: 100%;
+  height: 46px;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.search-input::placeholder {
+  color: var(--text-dim);
+}
+
+.search-clear-btn {
+  width: 28px;
+  height: 28px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dim);
+  border-radius: 50%;
+  font-size: 0.85rem;
+  transition: color 0.15s ease;
+}
+
+.search-clear-btn:hover {
+  color: var(--text-primary);
+}
+
+.search-input:not(:placeholder-shown) ~ .search-clear-btn {
+  display: flex;
+}
+
+/* Barra de Categorias Horizontal Sticky */
+.categories-bar-wrapper {
+  position: sticky;
+  top: var(--header-height);
+  z-index: 90;
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 10px 0;
+}
+
+.categories-bar {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 0 16px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.categories-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.category-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  min-height: 38px;
+  border-radius: var(--radius-full);
+  background-color: #F0EFEA;
+  border: 1px solid var(--border-subtle);
+  color: #555555;
+  font-size: 0.86rem;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  letter-spacing: -0.1px;
+}
+
+.category-tab:hover {
+  background-color: #E8E6E0;
+  color: var(--text-primary);
+  border-color: #D8D4CC;
+}
+
+.category-tab.active {
+  background-color: var(--brand-terracotta);
+  color: #FFFFFF;
+  border-color: var(--brand-terracotta);
+  box-shadow: 0 3px 12px rgba(200, 90, 23, 0.24);
+  font-weight: 700;
+}
+
+/* =====================================================================
+   SEÇÕES E LISTAGEM DE PRODUTOS
+   ===================================================================== */
+.menu-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.menu-section {
+  scroll-margin-top: calc(var(--header-height) + var(--category-bar-height) + 14px);
+}
+
+.section-header {
+  margin-bottom: 14px;
+}
+
+.section-title-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+  line-height: 1.25;
+}
+
+.section-count {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background-color: var(--bg-main-alt);
+  border: 1px solid var(--border-subtle);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.section-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+/* Grade de Produtos */
+.products-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Card do Produto (Clean & Refinado) */
+.product-card {
+  display: flex;
+  gap: 14px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 12px;
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.product-card:active {
+  transform: scale(0.985);
+}
+
+.product-card:hover {
+  border-color: #DFDBD3;
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* Imagem e Miniatura do Card */
+.product-card-media {
+  width: 104px;
+  height: 104px;
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;
+  background-color: var(--bg-main-alt);
+  border: 1px solid var(--border-subtle);
+}
+
+.product-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-card-img {
+  transform: scale(1.04);
+}
+
+/* Fallback de mídia caso imagem falte */
+.media-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-main-alt);
+  color: var(--brand-terracotta);
+  font-size: 1.8rem;
+}
+
+/* Badge de Destaque Discreta e Elegante */
+.product-badge {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  background-color: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid var(--brand-terracotta-border);
+  color: var(--brand-terracotta);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+/* Informações do Produto */
+.product-card-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.product-card-name {
+  font-family: var(--font-heading);
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.25;
+  margin-bottom: 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.product-card-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.product-card-footer {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.product-price {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--brand-terracotta);
+  letter-spacing: -0.2px;
+}
+
+.product-price-currency {
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-right: 2px;
+  color: var(--brand-terracotta);
+}
+
+.btn-open-detail {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--bg-main-alt);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  transition: all 0.18s ease;
+}
+
+.product-card:hover .btn-open-detail {
+  background-color: var(--brand-terracotta);
+  border-color: var(--brand-terracotta);
+  color: #FFFFFF;
+  transform: scale(1.08);
+}
+
+/* Estado de busca vazia */
+.empty-search-state {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 20px;
+  text-align: center;
+}
+
+.empty-search-state.show {
+  display: flex;
+}
+
+.empty-icon {
+  font-size: 3rem;
+  margin-bottom: 12px;
+  opacity: 0.7;
+}
+
+.empty-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.empty-desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+}
+
+/* =====================================================================
+   3. MODAL / BOTTOM SHEET DE DETALHES DO PRODUTO (LIGHT THEME)
+   ===================================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(31, 30, 28, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.product-drawer {
+  position: relative;
+  width: 100%;
+  max-width: 580px;
+  max-height: 90vh;
+  background-color: #FFFFFF;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border: 1px solid var(--border-subtle);
+  border-bottom: none;
+  box-shadow: var(--shadow-drawer);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  padding-bottom: env(safe-area-inset-bottom, 20px);
+}
+
+.modal-overlay.active .product-drawer {
+  transform: translateY(0);
+}
+
+/* Handle superior de arrastar */
+.drawer-handle-bar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0 6px 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 15;
+  pointer-events: none;
+}
+
+.drawer-handle {
+  width: 44px;
+  height: 5px;
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: var(--radius-full);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+}
+
+/* Mídia em destaque no topo do modal */
+.drawer-media-wrap,
+.modal-media,
+.modal-image-container {
+  position: relative;
+  width: 100%;
+  height: clamp(280px, 75vw, 320px);
+  aspect-ratio: 4 / 3;
+  min-height: 280px;
+  max-height: 320px;
+  background-color: #F7F5F0;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+@supports (aspect-ratio: 4 / 3) {
+  .drawer-media-wrap,
+  .modal-media,
+  .modal-image-container {
+    height: auto;
+  }
+}
+
+/* Vinheta suave no topo para destacar o handle e o botão fechar */
+.drawer-media-wrap::before,
+.modal-media::before,
+.modal-image-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.28) 0%,
+    rgba(0, 0, 0, 0.1) 40%,
+    transparent 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+.drawer-media-img,
+.drawer-media-video,
+.modal-media img,
+.modal-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 75%;
+  display: block;
+}
+
+/* Regra e classe dedicada para manter o hambúrguer centralizado e visível por inteiro */
+.burger-focus,
+.drawer-media-img.burger-focus,
+.modal-media img.burger-focus,
+.modal-image-container img.burger-focus {
+  object-fit: cover;
+  object-position: center 75%;
+}
+
+.focus-bottom,
+.drawer-media-img.focus-bottom {
+  object-fit: cover;
+  object-position: bottom center;
+}
+
+/* Imagens verticais ou que necessitem de acomodação completa sem cortes */
+.drawer-media-img.is-vertical,
+.drawer-media-img.contain-fit {
+  object-fit: contain;
+  object-position: center;
+  background-color: #F7F5F0;
+}
+
+.drawer-media-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2) 0%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.95) 100%
+  );
+  pointer-events: none;
+}
+
+/* Botão Fechar Modal Flutuante com alto contraste e nitidez */
+.btn-close-modal {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  color: #1F1E1C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1;
+  z-index: 20;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18), 0 1px 3px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-close-modal:hover {
+  background-color: #FFFFFF;
+  transform: scale(1.05);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+}
+
+.btn-close-modal:active {
+  transform: scale(0.92);
+}
+
+/* Conteúdo do Drawer */
+.drawer-body {
+  padding: 18px 20px 24px 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: #FFFFFF;
+}
+
+.drawer-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--brand-terracotta);
+  background-color: var(--brand-terracotta-light);
+  border: 1px solid var(--brand-terracotta-border);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+}
+
+.drawer-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.drawer-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.drawer-price {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--brand-terracotta);
+  white-space: nowrap;
+}
+
+.drawer-desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* Seção de Ingredientes */
+.drawer-section-title {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.ingredients-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+}
+
+.ingredient-pill {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-heading);
+  background-color: var(--bg-main-alt);
+  border: 1px solid var(--border-subtle);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ingredient-pill::before {
+  content: "•";
+  color: var(--brand-terracotta);
+  font-size: 1.15rem;
+}
+
+/* Card de Acompanhamento / Molho Incluso */
+.drawer-accompaniment-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background-color: var(--brand-terracotta-light);
+  border: 1px solid var(--brand-terracotta-border);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+}
+
+.accompaniment-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.accompaniment-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.accompaniment-title {
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--brand-terracotta);
+}
+
+.accompaniment-desc {
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+/* Fallback Grande no Modal de Detalhes */
+.media-fallback-large {
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #FAF9F5 0%, #F5F1E8 100%);
+  border-bottom: 1px solid var(--border-subtle);
+  position: relative;
+  text-align: center;
+  padding: 20px;
+}
+
+.media-fallback-large .fallback-svg-wrap {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  border: 1.5px solid var(--brand-terracotta-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(200, 90, 23, 0.12);
+  margin-bottom: 12px;
+}
+
+.media-fallback-large .fallback-brand-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--brand-terracotta);
+  background: rgba(200, 90, 23, 0.08);
+  border: 1px solid var(--brand-terracotta-border);
+  padding: 3px 12px;
+  border-radius: var(--radius-full);
+}
+
+/* =====================================================================
+   SEÇÃO DE ADICIONAIS NO MODAL DE DETALHES (EXCLUSIVO AO CLICAR)
+   ===================================================================== */
+.drawer-addons-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.drawer-addons-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.drawer-addons-header .drawer-section-title {
+  margin-bottom: 0;
+}
+
+.drawer-addons-optional-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  background-color: var(--bg-main-alt);
+  border: 1px solid var(--border-subtle);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.drawer-addons-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.drawer-addon-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.18s ease;
+  position: relative;
+}
+
+.drawer-addon-item:hover {
+  background-color: #FAFAF7;
+  border-color: #DFDBD3;
+}
+
+/* Destaque sutil com borda terracota e fundo creme leve ao marcar */
+.drawer-addon-item.selected,
+.drawer-addon-item:has(.addon-checkbox:checked) {
+  background-color: #FDF9F5;
+  border-color: var(--brand-terracotta);
+  box-shadow: 0 2px 8px rgba(200, 90, 23, 0.08);
+}
+
+.drawer-addon-item-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  flex: 1;
+}
+
+/* Checkbox Estilizado Personalizado */
+.addon-checkbox-wrap {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.addon-checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  margin: 0;
+  z-index: 2;
+}
+
+.addon-custom-check {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  border: 1.5px solid #D5D1C8;
+  background-color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: transparent;
+  transition: all 0.18s ease;
+  pointer-events: none;
+}
+
+.addon-checkbox:checked + .addon-custom-check,
+.drawer-addon-item.selected .addon-custom-check {
+  background-color: var(--brand-terracotta);
+  border-color: var(--brand-terracotta);
+  color: #FFFFFF;
+  box-shadow: 0 2px 6px rgba(200, 90, 23, 0.25);
+}
+
+.addon-name {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.drawer-addon-item.selected .addon-name,
+.drawer-addon-item:has(.addon-checkbox:checked) .addon-name {
+  color: #2D2B28;
+}
+
+.addon-price {
+  font-family: var(--font-heading);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--brand-terracotta);
+  white-space: nowrap;
+  letter-spacing: -0.2px;
+}
+
+/* Ações do Modal de Detalhes */
+.drawer-actions {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: sticky;
+  bottom: 0;
+  background: linear-gradient(to top, #FFFFFF 90%, rgba(255, 255, 255, 0));
+  padding-top: 10px;
+  padding-bottom: 2px;
+  z-index: 10;
+}
+
+.btn-primary-action {
+  width: 100%;
+  min-height: 52px;
+  background-color: var(--brand-terracotta);
+  border-radius: var(--radius-md);
+  color: #FFFFFF;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 4px 16px rgba(200, 90, 23, 0.28);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.btn-primary-action:hover {
+  background-color: var(--brand-terracotta-hover);
+}
+
+.btn-primary-action:active {
+  transform: scale(0.98);
+}
+
+/* =====================================================================
+   3.1 MODAL / GAVETA DA SACOLA DE PEDIDOS (LIGHT THEME)
+   ===================================================================== */
+.cart-drawer {
+  max-height: 92vh;
+}
+
+.cart-drawer-header {
+  padding: 22px 20px 14px 20px;
+  border-bottom: 1px solid var(--border-subtle);
+  position: relative;
+  background-color: #FFFFFF;
+}
+
+.cart-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-right: 44px; /* Espaço para o botão fechar */
+}
+
+.cart-drawer-title {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+}
+
+.cart-table-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--status-table-bg);
+  border: 1px solid var(--status-table-border);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--status-table-text);
+}
+
+.cart-drawer-subtitle {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.cart-drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  background-color: #FFFFFF;
+  max-height: 48vh;
+}
+
+/* Lista de itens da sacola */
+.cart-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cart-item-card {
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: border-color 0.15s ease;
+}
+
+.cart-item-thumb {
+  width: 58px;
+  height: 58px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  object-position: center;
+  border: 1px solid var(--border-subtle);
+  background-color: #FFFFFF;
+  flex-shrink: 0;
+}
+
+.cart-item-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.cart-item-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.cart-item-name {
+  font-family: var(--font-heading);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn-cart-remove {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  line-height: 1;
+  padding: 2px 4px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: color 0.15s ease;
+}
+
+.btn-cart-remove:hover {
+  color: #DC2626;
+}
+
+.cart-item-addons {
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: var(--text-secondary);
+  margin: 1px 0 3px 0;
+  word-break: break-word;
+}
+
+.cart-item-addons-price {
+  font-weight: 700;
+  color: var(--brand-terracotta);
+  white-space: nowrap;
+}
+
+.cart-item-unit {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.cart-item-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.cart-qty-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 2px 4px;
+}
+
+.btn-qty-action {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.1s ease, background-color 0.1s ease;
+}
+
+.btn-qty-action:active {
+  transform: scale(0.9);
+  background-color: var(--border-subtle);
+}
+
+.cart-qty-display {
+  min-width: 22px;
+  text-align: center;
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.cart-item-subtotal {
+  font-family: var(--font-heading);
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: var(--brand-terracotta);
+}
+
+/* Estado Vazio da Sacola */
+.cart-empty-state {
+  padding: 36px 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin: auto 0;
+}
+
+.cart-empty-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: var(--brand-terracotta-light);
+  border: 1px solid var(--brand-terracotta-border);
+  color: var(--brand-terracotta);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.cart-empty-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.cart-empty-desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  max-width: 260px;
+  line-height: 1.45;
+}
+
+.btn-explore-menu {
+  margin-top: 8px;
+  padding: 10px 22px;
+  border-radius: var(--radius-full);
+  background-color: var(--brand-terracotta-light);
+  border: 1px solid var(--brand-terracotta-border);
+  color: var(--brand-terracotta);
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.btn-explore-menu:active {
+  transform: scale(0.96);
+}
+
+/* Rodapé da Sacola */
+.cart-drawer-footer {
+  padding: 16px 20px 20px 20px;
+  border-top: 1px solid var(--border-subtle);
+  background-color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.cart-notes-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cart-notes-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--text-secondary);
+}
+
+.cart-notes-input {
+  width: 100%;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  background-color: var(--bg-main);
+  resize: none;
+  outline: none;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.cart-notes-input:focus {
+  border-color: var(--brand-terracotta);
+  background-color: #FFFFFF;
+}
+
+.cart-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 2px;
+}
+
+.cart-total-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.cart-total-value {
+  font-family: var(--font-heading);
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+}
+
+.btn-whatsapp-order {
+  width: 100%;
+  min-height: 52px;
+  border-radius: var(--radius-md);
+  background-color: var(--brand-terracotta);
+  color: #FFFFFF;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 6px 20px rgba(200, 90, 23, 0.3);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.btn-whatsapp-order:hover {
+  background-color: var(--brand-terracotta-hover);
+}
+
+.btn-whatsapp-order:active {
+  transform: scale(0.98);
+}
+
+/* =====================================================================
+   4. MODAL DE WI-FI (LIGHT THEME)
+   ===================================================================== */
+.wifi-modal-box {
+  width: 90%;
+  max-width: 420px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  box-shadow: var(--shadow-modal);
+  text-align: center;
+  position: relative;
+  transform: scale(0.92);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  margin: auto;
+}
+
+.modal-overlay.active .wifi-modal-box {
+  transform: scale(1);
+}
+
+.wifi-icon-large {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: var(--brand-terracotta-light);
+  border: 1px solid var(--brand-terracotta-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px auto;
+  font-size: 1.8rem;
+  color: var(--brand-terracotta);
+}
+
+.wifi-modal-title {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.wifi-modal-desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+
+.wifi-info-card {
+  background-color: var(--bg-main-alt);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.wifi-row {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.wifi-row-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+}
+
+.wifi-row-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-family: monospace;
+}
+
+.btn-copy-wifi {
+  width: 100%;
+  min-height: 48px;
+  background-color: var(--brand-terracotta);
+  border-radius: var(--radius-md);
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+  box-shadow: 0 4px 14px rgba(200, 90, 23, 0.25);
+}
+
+.btn-copy-wifi:hover {
+  background-color: var(--brand-terracotta-hover);
+}
+
+.btn-copy-wifi:active {
+  transform: scale(0.97);
+}
+
+/* Botão ADM: Alterar Dados do Wi-Fi */
+.btn-admin-edit-wifi {
+  width: 100%;
+  min-height: 42px;
+  background-color: transparent;
+  border: 1px dashed var(--brand-terracotta);
+  border-radius: var(--radius-md);
+  color: var(--brand-terracotta);
+  font-weight: 600;
+  font-size: 0.88rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-admin-edit-wifi:hover {
+  background-color: rgba(200, 90, 23, 0.08);
+  border-style: solid;
+}
+
+.btn-admin-edit-wifi:active {
+  transform: scale(0.98);
+}
+
+/* Formulário de Edição ADM do Wi-Fi */
+.wifi-edit-form {
+  background-color: var(--bg-main-alt);
+  border: 1px solid var(--brand-terracotta-border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.wifi-edit-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.wifi-edit-label {
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+}
+
+.wifi-edit-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  background-color: #FFFFFF;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wifi-edit-input:focus {
+  outline: none;
+  border-color: var(--brand-terracotta);
+  box-shadow: 0 0 0 3px rgba(200, 90, 23, 0.15);
+}
+
+.wifi-edit-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.btn-wifi-edit-cancel {
+  flex: 1;
+  min-height: 42px;
+  background-color: #ECEAE4;
+  color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.88rem;
+  border: 1px solid var(--border-subtle);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-wifi-edit-cancel:hover {
+  background-color: #E2DFD7;
+  color: var(--text-primary);
+}
+
+.btn-wifi-edit-save {
+  flex: 1.3;
+  min-height: 42px;
+  background-color: var(--brand-terracotta);
+  color: #FFFFFF;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 0.88rem;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(200, 90, 23, 0.25);
+  transition: all 0.15s ease;
+}
+
+.btn-wifi-edit-save:hover {
+  background-color: var(--brand-terracotta-hover);
+}
+
+.btn-wifi-edit-save:active {
+  transform: scale(0.98);
+}
+
+.btn-close-wifi-text {
+  margin-top: 14px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  padding: 8px 16px;
+  transition: color 0.15s ease;
+}
+
+.btn-close-wifi-text:hover {
+  color: var(--text-primary);
+}
+
+/* =====================================================================
+   5. FEEDBACK TOAST DE NOTIFICAÇÃO (CONTRASTE ELEGANTE)
+   ===================================================================== */
+.toast-notice {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background-color: #1F1E1C;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  padding: 12px 22px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  opacity: 0;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
+  pointer-events: none;
+  max-width: min(92vw, 480px);
+  text-align: center;
+}
+
+.toast-notice.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+.toast-icon {
+  color: #34D399;
+  font-size: 1.1rem;
+}
+
+/* =====================================================================
+   6. MODO ADMINISTRADOR (ADM) — PAINEL, CONTROLES & FORMULÁRIOS
+   ===================================================================== */
+
+/* Ajustes de layout sticky quando em Modo ADM */
+body.admin-mode-active {
+  --admin-bar-height: 52px;
+}
+
+body.admin-mode-active .menu-header {
+  top: var(--admin-bar-height, 52px);
+}
+
+body.admin-mode-active .categories-bar-wrapper {
+  top: calc(var(--header-height) + var(--admin-bar-height, 52px));
+}
+
+body.admin-mode-active .menu-section {
+  scroll-margin-top: calc(var(--header-height) + var(--category-bar-height) + var(--admin-bar-height, 52px) + 16px);
+}
+
+/* Barra Superior Fixa do ADM */
+#adminTopBar,
+.admin-top-bar {
+  position: sticky;
+  top: 0;
+  z-index: 105;
+  width: 100%;
+  max-width: 580px; /* Alinhado ao container central do cardápio */
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 8px 12px;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid var(--border-subtle);
+  box-shadow: 0 2px 10px rgba(31, 30, 28, 0.04);
+  animation: adminSlideDown 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes adminSlideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.admin-top-bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.admin-top-bar-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--brand-terracotta);
+  white-space: nowrap;
+}
+
+.admin-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #10B981;
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
+  animation: adminPulse 1.8s infinite;
+}
+
+@keyframes adminPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 7px rgba(16, 185, 129, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+/* Ações da Barra do ADM */
+#adminTopBar .admin-bar-actions,
+.admin-top-bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-sizing: border-box;
+}
+
+#adminTopBar button,
+#adminTopBar .btn-admin-action,
+.btn-admin-bar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  padding: 6px 12px;
+  min-height: 34px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.btn-admin-bar-new {
+  background-color: var(--brand-terracotta);
+  color: #FFFFFF;
+  border: 1px solid var(--brand-terracotta);
+  box-shadow: 0 2px 8px rgba(200, 90, 23, 0.25);
+}
+
+.btn-admin-bar-new:hover {
+  background-color: var(--brand-terracotta-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(200, 90, 23, 0.35);
+}
+
+.btn-admin-bar-new:active {
+  transform: scale(0.96);
+}
+
+.btn-admin-bar-logout {
+  background-color: var(--bg-main-alt);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+  padding: 6px 10px;
+  font-size: 0.76rem;
+}
+
+.btn-admin-bar-logout:hover {
+  color: #DC2626;
+  border-color: #FECACA;
+  background-color: #FEF2F2;
+}
+
+.btn-admin-bar-logout:active {
+  transform: scale(0.96);
+}
+
+/* Ações Administrativas nos Cards de Produtos */
+.product-card-admin-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--border-divider);
+}
+
+.btn-card-adm {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  min-height: 28px;
+  border-radius: var(--radius-full);
+  font-size: 0.74rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background-color: var(--bg-main-alt);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  user-select: none;
+}
+
+.btn-card-adm:hover {
+  transform: translateY(-1px);
+}
+
+.btn-card-adm:active {
+  transform: scale(0.95);
+}
+
+.btn-card-adm-edit {
+  color: var(--text-primary);
+}
+
+.btn-card-adm-edit:hover {
+  background-color: var(--brand-terracotta-light);
+  border-color: var(--brand-terracotta-border);
+  color: var(--brand-terracotta);
+}
+
+.btn-card-adm-pause {
+  color: var(--text-secondary);
+}
+
+.btn-card-adm-pause:hover {
+  background-color: #FEF3C7;
+  border-color: #FCD34D;
+  color: #92400E;
+}
+
+.btn-card-adm-pause.is-paused {
+  background-color: #FEF3C7;
+  border-color: #FCD34D;
+  color: #92400E;
+  font-weight: 700;
+}
+
+.btn-card-adm-delete {
+  color: #DC2626;
+  border-color: #FEE2E2;
+  background-color: #FFF5F5;
+}
+
+.btn-card-adm-delete:hover {
+  background-color: #FEE2E2;
+  border-color: #DC2626;
+  color: #991B1B;
+}
+
+/* Estado de Produto Pausado */
+.product-card.product-card-paused {
+  opacity: 0.62;
+  background-color: #FAF8F5;
+  border-color: #E8E5DD;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.product-card.product-card-paused:hover {
+  opacity: 0.92;
+}
+
+.badge-paused {
+  background-color: #3F3D38 !important;
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Modais do ADM (Design Clean & Centrado) */
+.admin-auth-modal-box {
+  width: 90%;
+  max-width: 380px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-modal);
+  text-align: center;
+  position: relative;
+  margin: auto;
+  transform: scale(0.94);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-overlay.active .admin-auth-modal-box {
+  transform: scale(1);
+}
+
+.admin-auth-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background-color: var(--brand-terracotta-light);
+  border: 1px solid var(--brand-terracotta-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px auto;
+  color: var(--brand-terracotta);
+}
+
+.admin-modal-title {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  letter-spacing: -0.2px;
+}
+
+.admin-modal-desc {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin-bottom: 22px;
+}
+
+.admin-password-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.btn-toggle-pwd-visibility {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease;
+}
+
+.btn-toggle-pwd-visibility:hover {
+  color: var(--text-primary);
+}
+
+.admin-form-feedback-error {
+  font-size: 0.78rem;
+  color: #DC2626;
+  margin-top: 6px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.btn-admin-auth-submit {
+  width: 100%;
+  margin-top: 18px;
+}
+
+/* Modal de Formulário de Produto */
+#adminProductFormModal {
+  align-items: center;
+  justify-content: center;
+  padding: 16px 12px;
+}
+
+#adminProductFormModal .modal-content,
+#adminProductFormModal .admin-modal-box,
+.admin-product-modal-content {
+  width: 100%;
+  max-width: 540px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-modal);
+  position: relative;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  max-height: 90dvh;
+  height: auto;
+  overflow: hidden; /* impede que o modal estoure a tela */
+  transform: scale(0.96);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-overlay.active #adminProductFormModal .modal-content,
+.modal-overlay.active #adminProductFormModal .admin-modal-box,
+.modal-overlay.active .admin-product-modal-content {
+  transform: scale(1);
+}
+
+#adminProductFormModal .admin-modal-header {
+  padding: 18px 22px 14px 22px;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  background-color: #FFFFFF;
+  flex-shrink: 0;
+  z-index: 5;
+}
+
+.admin-modal-title-wrap {
+  text-align: left;
+}
+
+.admin-modal-subtitle {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.btn-close-modal-clean {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--bg-main-alt);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.btn-close-modal-clean:hover {
+  background-color: #EAE6DF;
+  color: var(--text-primary);
+}
+
+#adminProductFormModal form,
+#adminProductFormModal .admin-product-form {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+#adminProductFormModal .modal-body,
+#adminProductFormModal .admin-form-scrollable-body,
+.admin-form-scrollable-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 18px 22px;
+  min-height: 0; /* essencial no flexbox para scroll funcional */
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.admin-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  text-align: left;
+}
+
+.admin-form-label {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.admin-label-hint {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--text-dim);
+  text-transform: none;
+}
+
+.required-star {
+  color: var(--brand-terracotta);
+  margin-left: 2px;
+}
+
+.admin-form-input,
+.admin-form-select,
+.admin-form-textarea {
+  width: 100%;
+  background-color: var(--bg-input);
+  border: 1.5px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  font-size: 0.92rem;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.admin-form-input:focus,
+.admin-form-select:focus,
+.admin-form-textarea:focus {
+  outline: none;
+  border-color: var(--brand-terracotta);
+  box-shadow: 0 0 0 3px rgba(200, 90, 23, 0.12);
+}
+
+.admin-form-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.flex-category {
+  flex: 1.35;
+}
+
+.flex-price {
+  flex: 1;
+}
+
+.admin-select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.admin-form-select {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  padding-right: 36px;
+}
+
+.admin-select-arrow {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+}
+
+.admin-price-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.admin-price-prefix {
+  position: absolute;
+  left: 12px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--brand-terracotta);
+  pointer-events: none;
+}
+
+.admin-price-input {
+  padding-left: 38px;
+}
+
+/* Upload e Pré-visualização de Foto do Produto */
+.admin-upload-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.btn-admin-choose-file {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 50px;
+  padding: 12px 18px;
+  background-color: var(--bg-main-alt);
+  border: 1.5px dashed var(--brand-terracotta-border);
+  border-radius: var(--radius-md);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--brand-terracotta);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  box-sizing: border-box;
+}
+
+.btn-admin-choose-file:hover {
+  background-color: var(--brand-terracotta-light);
+  border-color: var(--brand-terracotta);
+  border-style: solid;
+  transform: translateY(-1px);
+}
+
+.btn-admin-choose-file:active {
+  transform: scale(0.99);
+}
+
+.btn-choose-file-icon {
+  font-size: 1.1rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+.admin-image-preview-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  box-shadow: 0 2px 8px rgba(74, 18, 26, 0.04);
+  animation: adminPreviewFadeIn 0.2s ease;
+  box-sizing: border-box;
+}
+
+@keyframes adminPreviewFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#adminImagePreview,
+.admin-image-preview-thumb {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-main-alt);
+  flex-shrink: 0;
+}
+
+#btnAdminRemoveImage,
+.btn-admin-remove-image {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background-color: #FEE2E2;
+  color: #DC2626;
+  border: 1px solid #FECACA;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+#btnAdminRemoveImage:hover,
+.btn-admin-remove-image:hover {
+  background-color: #FCA5A5;
+  color: #991B1B;
+}
+
+#btnAdminRemoveImage:active,
+.btn-admin-remove-image:active {
+  transform: scale(0.96);
+}
+
+.admin-checkboxes-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: var(--bg-main-alt);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  margin-top: 4px;
+}
+
+.admin-toggle-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.admin-checkbox-real {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.admin-toggle-switch {
+  width: 36px;
+  height: 20px;
+  background-color: #D8D4CC;
+  border-radius: var(--radius-full);
+  position: relative;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease;
+  margin-top: 2px;
+}
+
+.admin-toggle-switch::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.admin-checkbox-real:checked + .admin-toggle-switch {
+  background-color: var(--brand-terracotta);
+}
+
+.admin-checkbox-real:checked + .admin-toggle-switch::after {
+  transform: translateX(16px);
+}
+
+.admin-toggle-labels {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  text-align: left;
+}
+
+.admin-toggle-title {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--text-heading);
+}
+
+.admin-toggle-sub {
+  font-size: 0.74rem;
+  color: var(--text-secondary);
+  line-height: 1.35;
+}
+
+/* Container Expansível de Configuração de Adicionais */
+#adminAddonsConfigSection,
+.admin-addons-config {
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 14px 12px;
+  margin-top: 4px;
+  margin-bottom: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: auto;
+  max-height: none;
+  overflow: visible;
+  animation: adminAddonsExpand 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes adminAddonsExpand {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.admin-addons-config-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  border-bottom: 1px dashed var(--border-divider);
+  padding-bottom: 8px;
+}
+
+.admin-addons-config-titles {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+}
+
+.admin-addons-config-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-heading);
+}
+
+.admin-addons-config-desc {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+.admin-addons-quick-actions {
+  display: flex;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.btn-addons-quick {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--brand-terracotta);
+  background-color: var(--brand-terracotta-light);
+  border: 1px solid var(--brand-terracotta-border);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-addons-quick:hover {
+  background-color: #F8E3D4;
+}
+
+/* Lista de Adicionais */
+.admin-addons-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-right: 2px;
+}
+
+.admin-addon-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-subtle);
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.admin-addon-item-row.is-active,
+.admin-addon-item-row.is-selected {
+  background-color: #FFFFFF;
+  border-color: var(--brand-terracotta-border);
+  opacity: 1;
+}
+
+.admin-addon-item-row.is-inactive {
+  opacity: 0.55;
+  background-color: var(--bg-main-alt);
+}
+
+.admin-addon-item-label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  flex: 1;
+  min-width: 0;
+  user-select: none;
+}
+
+.admin-addon-checkbox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  opacity: 0;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.admin-addon-custom-check {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 1.5px solid var(--border-subtle);
+  background-color: #FFFFFF;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.admin-addon-checkbox:checked + .admin-addon-custom-check {
+  background-color: var(--brand-terracotta);
+  border-color: var(--brand-terracotta);
+}
+
+.admin-addon-item-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+
+.admin-addon-item-price-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 4px;
+}
+
+.admin-addon-price-prefix {
+  position: absolute;
+  left: 7px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--brand-terracotta);
+  pointer-events: none;
+}
+
+.admin-addon-price-input {
+  width: 78px;
+  padding: 4px 6px 4px 24px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  text-align: right;
+  transition: border-color 0.15s ease;
+}
+
+.admin-addon-price-input:focus {
+  outline: none;
+  border-color: var(--brand-terracotta);
+}
+
+.btn-remove-custom-addon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  cursor: pointer;
+  border: none;
+  background: none;
+  transition: all 0.15s ease;
+}
+
+.btn-remove-custom-addon:hover {
+  background-color: #FEE2E2;
+  color: #DC2626;
+}
+
+/* Seção para Novo Adicional Customizado */
+.admin-addon-new-box {
+  border-top: 1px dashed var(--border-divider);
+  padding-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+}
+
+.admin-addon-new-title {
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  letter-spacing: 0.3px;
+}
+
+.admin-addon-new-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.admin-addon-new-name {
+  flex: 1.4;
+  min-width: 0;
+  font-size: 0.82rem;
+  padding: 6px 10px;
+}
+
+.admin-addon-price-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.admin-addon-new-price {
+  width: 100%;
+  padding: 6px 8px 6px 26px;
+  font-size: 0.82rem;
+}
+
+.btn-admin-add-addon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 6px 12px;
+  min-height: 34px;
+  background-color: var(--brand-terracotta);
+  color: #FFFFFF;
+  border-radius: var(--radius-md);
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.btn-admin-add-addon:hover {
+  background-color: var(--brand-terracotta-hover);
+}
+
+.btn-admin-add-addon:active {
+  transform: scale(0.96);
+}
+
+#adminProductFormModal .modal-footer,
+#adminProductFormModal .admin-modal-footer,
+.admin-modal-footer,
+.admin-form-actions {
+  flex-shrink: 0;
+  padding: 12px 16px;
+  background: #FFFFFF;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.btn-admin-modal-cancel {
+  padding: 10px 18px;
+  min-height: 44px;
+  border-radius: var(--radius-md);
+  background: none;
+  border: 1px solid var(--border-subtle);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-admin-modal-cancel:hover {
+  background-color: var(--bg-main-alt);
+  color: var(--text-primary);
+}
+
+.btn-admin-modal-save {
+  padding: 10px 22px;
+  min-height: 44px;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+/* Modal de Confirmação de Exclusão */
+.admin-confirm-box {
+  width: 90%;
+  max-width: 380px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 26px 22px;
+  box-shadow: var(--shadow-modal);
+  text-align: center;
+  position: relative;
+  margin: auto;
+  transform: scale(0.94);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-overlay.active .admin-confirm-box {
+  transform: scale(1);
+}
+
+.admin-confirm-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background-color: #FEE2E2;
+  border: 1px solid #FECACA;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 14px auto;
+  color: #DC2626;
+}
+
+.admin-confirm-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.admin-confirm-desc {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin-bottom: 22px;
+}
+
+.admin-confirm-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.btn-admin-danger {
+  padding: 10px 20px;
+  min-height: 44px;
+  border-radius: var(--radius-md);
+  background-color: #DC2626;
+  color: #FFFFFF;
+  font-size: 0.88rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+  box-shadow: 0 3px 12px rgba(220, 38, 38, 0.25);
+}
+
+.btn-admin-danger:hover {
+  background-color: #B91C1C;
+}
+
+.btn-admin-danger:active {
+  transform: scale(0.97);
+}
+
+/* =====================================================================
+   RESPONSIVIDADE E ACABAMENTO
+   ===================================================================== */
+@media (min-width: 600px) {
+  .app-container {
+    border-left: 1px solid var(--border-subtle);
+    border-right: 1px solid var(--border-subtle);
+    background-color: var(--bg-main);
+    min-height: 100vh;
+  }
+
+  .drawer-media-wrap,
+  .modal-media,
+  .modal-image-container {
+    height: 340px;
+    max-height: 360px;
+  }
+}
+
+@media (max-width: 480px) {
+  #adminProductFormModal {
+    padding: 8px 6px;
+  }
+
+  #adminProductFormModal .admin-modal-box,
+  #adminProductFormModal .modal-content,
+  .admin-product-modal-content {
+    max-height: calc(100dvh - 16px);
+    border-radius: var(--radius-lg);
+  }
+
+  #adminProductFormModal .admin-modal-header {
+    padding: 14px 16px 12px 16px;
+  }
+
+  #adminProductFormModal .modal-body,
+  .admin-form-scrollable-body {
+    padding: 14px 16px;
+    gap: 12px;
+  }
+
+  #adminProductFormModal .modal-footer,
+  .admin-form-actions {
+    padding: 10px 16px;
+  }
+
+  #adminAddonsConfigSection,
+  .admin-addons-config {
+    padding: 10px 8px;
+  }
+}
+
