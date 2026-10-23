@@ -1,11 +1,11 @@
 /**
- * TEXAS CARDÁPIO - Módulo de Integração com Supabase
+ * CAJUEIRO CARDÁPIO - Módulo de Integração com Supabase
  * Módulo de Integração Direta com Supabase (REST API leve via fetch)
  * Sem dependências ou CDNs pesadas para máxima performance mobile
  */
 
-const SUPABASE_URL = 'https://vcwnhusrfznlerdtulqz.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZjd25odXNyZnpubGVyZHR1bHF6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI1Mzc5ODIsImV4cCI6MjEwODExMzk4Mn0.ZwmDCojXw0h8ooJ6flO1N_TUiy4DTQLOMgSqfVasOSg';
+const SUPABASE_URL = 'https://qudismvvbcolgmbayudk.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF1ZGlzbXZ2YmNvbGdtYmF5dWRrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3Njk1NzcsImV4cCI6MjEwODM0NTU3N30.tbq1VpWBgCrTNrWggAb9EHVUkpZflxgjCC48SgmsFag';
 
 const SupabaseService = {
   url: SUPABASE_URL,
@@ -28,8 +28,8 @@ const SupabaseService = {
    */
   toSupabase(product, index = 0) {
     // 1. Processa addons_config (Supabase JSONB)
-    const catalog = (typeof window !== 'undefined' && window.addonItems) 
-      ? window.addonItems 
+    const catalog = (typeof window !== 'undefined' && window.addonItems)
+      ? window.addonItems
       : ((typeof window !== 'undefined' && window.menuData?.addonItems) ? window.menuData.addonItems : {});
 
     let addonsConfig = [];
@@ -80,7 +80,7 @@ const SupabaseService = {
               const rawPrice = typeof p.price === 'number' ? p.price : parseFloat(p.price || 0);
               const finalPrice = (rawPrice > 0 || !base) ? rawPrice : Number(base.price);
               return { id: String(p.id), name: formattedName, price: finalPrice };
-            } catch (e) {}
+            } catch (e) { }
           }
           const base = catalog[item];
           const price = (customPrices[item] != null && Number(customPrices[item]) > 0) ? Number(customPrices[item]) : (base ? base.price : 0);
@@ -95,8 +95,8 @@ const SupabaseService = {
     }
 
     // 2. Processa allowed_addons legado (text[])
-    const rawAddons = Array.isArray(product.allowedAddons) 
-      ? product.allowedAddons 
+    const rawAddons = Array.isArray(product.allowedAddons)
+      ? product.allowedAddons
       : (Array.isArray(product.allowed_addons) ? product.allowed_addons : []);
 
     const stringAddons = rawAddons.map(item => {
@@ -133,7 +133,7 @@ const SupabaseService = {
    */
   fromSupabase(row) {
     const rawAddons = Array.isArray(row.allowed_addons) ? row.allowed_addons : (Array.isArray(row.allowedAddons) ? row.allowedAddons : []);
-    
+
     // Mapeia addons_config (Supabase) <-> addonsConfig (aplicação)
     let addonsConfig = [];
     let rawAddonsConfig = row.addons_config;
@@ -145,8 +145,8 @@ const SupabaseService = {
       }
     }
 
-    const catalog = (typeof window !== 'undefined' && window.addonItems) 
-      ? window.addonItems 
+    const catalog = (typeof window !== 'undefined' && window.addonItems)
+      ? window.addonItems
       : ((typeof window !== 'undefined' && window.menuData?.addonItems) ? window.menuData.addonItems : {});
 
     if (Array.isArray(rawAddonsConfig) && rawAddonsConfig.length > 0) {
@@ -171,7 +171,7 @@ const SupabaseService = {
             const rawPrice = typeof p.price === 'number' ? p.price : parseFloat(p.price || 0);
             const finalPrice = (rawPrice > 0 || !base) ? rawPrice : Number(base.price);
             return { id: String(p.id), name: formattedName, price: finalPrice };
-          } catch (e) {}
+          } catch (e) { }
         }
         const base = catalog[item];
         return {

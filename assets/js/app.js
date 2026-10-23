@@ -1,5 +1,5 @@
 /**
- * O Sobrado — Burger & Bar
+ * Cajueiro GastroPub (Lavras - MG)
  * JavaScript Vanilla Leve, Rápido e Focado em Mobile UX
  */
 
@@ -41,11 +41,11 @@ function getActiveTable() {
 
   if (paramTable) {
     const sanitizedTable = paramTable.trim();
-    sessionStorage.setItem('sobrado_mesa', sanitizedTable);
+    sessionStorage.setItem('cajueiro_mesa', sanitizedTable);
     return sanitizedTable;
   }
 
-  return sessionStorage.getItem('sobrado_mesa') || null;
+  return sessionStorage.getItem('cajueiro_mesa') || sessionStorage.getItem('sobrado_mesa') || null;
 }
 
 /**
@@ -139,9 +139,21 @@ async function loadProductsFromSupabase() {
   try {
     const supabaseProducts = await SupabaseService.fetchProducts();
     if (Array.isArray(supabaseProducts) && supabaseProducts.length > 0) {
+      // Se algum item do banco não tiver imagem cadastrada, mantém a imagem local correspondente se existir
+      const localMap = {};
+      if (window.menuData && Array.isArray(window.menuData.products)) {
+        window.menuData.products.forEach(p => {
+          if (p && p.id && p.imageUrl) localMap[p.id] = p.imageUrl;
+        });
+      }
+      supabaseProducts.forEach(sp => {
+        if (!sp.imageUrl && localMap[sp.id]) {
+          sp.imageUrl = localMap[sp.id];
+        }
+      });
       window.menuData.products = supabaseProducts;
       try {
-        localStorage.setItem('sobrado_custom_products', JSON.stringify(supabaseProducts));
+        localStorage.setItem('cajueiro_custom_products', JSON.stringify(supabaseProducts));
       } catch (e) { }
       renderProducts();
       console.log(`[Supabase] ${supabaseProducts.length} produtos carregados do banco.`);
@@ -164,99 +176,93 @@ function formatCurrency(value) {
 }
 
 /**
- * Fallback visual vetorial elegante com a paleta oficial do Sobrado
+/**
+ * Fallback visual vetorial elegante com a paleta oficial do Cajueiro GastroPub
  */
 function getCategoryFallbackSVG(categoryId, isLarge = false) {
   const size = isLarge ? 48 : 32;
-  const strokeColor = "#C85A17";
+  const strokeColor = "#D95B00";
 
   let iconSVG = '';
 
   switch (categoryId) {
-    case 'hamburgueres':
-    case 'mais-pedidos':
+    case 'entradas':
       iconSVG = `
         <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 11h16a1 1 0 0 0 1-1A6 6 0 0 0 3 10a1 1 0 0 0 1 1z"></path>
-          <path d="M4 15h16"></path>
-          <path d="M5 18h14a2 2 0 0 1 2 2H3a2 2 0 0 1 2-2z"></path>
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+          <line x1="12" y1="22.08" x2="12" y2="12"></line>
         </svg>
       `;
       break;
 
-    case 'porcoes-mais-pedidas':
+    case 'pratos-principais':
+      iconSVG = `
+        <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <circle cx="12" cy="12" r="4"></circle>
+          <line x1="12" y1="2" x2="12" y2="4"></line>
+          <line x1="12" y1="20" x2="12" y2="22"></line>
+          <line x1="20" y1="12" x2="22" y2="12"></line>
+          <line x1="2" y1="12" x2="4" y2="12"></line>
+        </svg>
+      `;
+      break;
+
+    case 'espetos':
+      iconSVG = `
+        <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+          <polyline points="2 17 12 22 22 17"></polyline>
+          <polyline points="2 12 12 17 22 12"></polyline>
+        </svg>
+      `;
+      break;
+
+    case 'caldos':
+      iconSVG = `
+        <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+          <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+          <line x1="6" y1="1" x2="6" y2="4"></line>
+          <line x1="10" y1="1" x2="10" y2="4"></line>
+          <line x1="14" y1="1" x2="14" y2="4"></line>
+        </svg>
+      `;
+      break;
+
     case 'porcoes':
+    case 'porcoes-mais-pedidas':
     case 'porcoes-individuais':
       iconSVG = `
         <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path>
-          <path d="M7 2v20"></path>
-          <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path>
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
         </svg>
       `;
       break;
 
-    case 'batata-frita':
+    case 'sobremesas':
       iconSVG = `
         <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M5 11l2 10h10l2-10H5z"></path>
-          <path d="M7 11V4"></path>
-          <path d="M10 11V2"></path>
-          <path d="M14 11V3"></path>
-          <path d="M17 11V5"></path>
-        </svg>
-      `;
-      break;
-
-    case 'macarrao-na-chapa':
-      iconSVG = `
-        <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 12h18"></path>
-          <path d="M4 12c0 4.4 3.6 8 8 8s8-3.6 8-8"></path>
-          <path d="M6 8c2-2 4-2 6 0s4 2 6 0"></path>
-        </svg>
-      `;
-      break;
-
-    case 'molhos-extras':
-      iconSVG = `
-        <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M7 10h10v6a5 5 0 0 1-10 0v-6z"></path>
-          <path d="M5 10h14"></path>
-          <path d="M12 4v6"></path>
-          <path d="M10 4h4"></path>
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
         </svg>
       `;
       break;
 
     case 'bebidas':
-      iconSVG = `
-        <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M17 8h1a4 4 0 1 1 0 8h-1"></path>
-          <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z"></path>
-          <line x1="6" y1="2" x2="6" y2="4"></line>
-          <line x1="10" y1="2" x2="10" y2="4"></line>
-          <line x1="14" y1="2" x2="14" y2="4"></line>
-        </svg>
-      `;
-      break;
-
     case 'cervejas':
       iconSVG = `
         <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M17 11h1a3 3 0 0 1 0 6h-1"></path>
-          <path d="M5 8h12v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8z"></path>
-          <path d="M5 8a3 3 0 0 1 6-1 3 3 0 0 1 6 1"></path>
+          <circle cx="12" cy="8" r="7"></circle>
+          <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
         </svg>
       `;
       break;
 
-    case 'balas':
+    case 'drinks':
       iconSVG = `
         <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="5"></circle>
-          <path d="M16 8l4-4v6l-4-2z"></path>
-          <path d="M8 16l-4 4v-6l4 2z"></path>
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
         </svg>
       `;
       break;
@@ -276,13 +282,13 @@ function getCategoryFallbackSVG(categoryId, isLarge = false) {
         <div class="fallback-svg-wrap">
           ${iconSVG}
         </div>
-        <span class="fallback-brand-tag">Hamburgueria TEXAS</span>
+        <span class="fallback-brand-tag">CAJUEIRO GASTROPUB</span>
       </div>
     `;
   }
 
   return `
-    <div class="media-fallback" style="background: #FDF3EC; border: 1px solid #F6D2BD; border-radius: 12px; display:flex; align-items:center; justify-content:center; width:100%; height:100%;">
+    <div class="media-fallback" style="background: rgba(217, 91, 0, 0.08); border: 1px solid rgba(217, 91, 0, 0.18); border-radius: 12px; display:flex; align-items:center; justify-content:center; width:100%; height:100%;">
       ${iconSVG}
     </div>
   `;
@@ -1064,7 +1070,7 @@ function renderDrawerAddons(product) {
  * ---------------------------------------------------------------------
  */
 const WifiManager = {
-  LOCAL_STORAGE_KEY: 'texas_wifi_config',
+  LOCAL_STORAGE_KEY: 'cajueiro_wifi_config',
   defaultConfig: {
     ssid: '',
     password: ''
@@ -1111,7 +1117,7 @@ const WifiManager = {
 
   getWifiConfig() {
     try {
-      const stored = localStorage.getItem(this.LOCAL_STORAGE_KEY);
+      const stored = localStorage.getItem(this.LOCAL_STORAGE_KEY) || localStorage.getItem('texas_wifi_config');
       if (stored) {
         const parsed = JSON.parse(stored);
         if (parsed && typeof parsed === 'object') {
@@ -1216,6 +1222,7 @@ function initWifiModal() {
 
   const isUserAdmin = () => {
     return (typeof AdminManager !== 'undefined' && AdminManager.isAdmin && AdminManager.isAdmin()) ||
+      sessionStorage.getItem('cajueiro_admin_auth') === 'true' ||
       sessionStorage.getItem('sobrado_admin_auth') === 'true';
   };
 
@@ -1438,7 +1445,7 @@ function initCart() {
 
 function loadCart() {
   try {
-    const saved = localStorage.getItem('sobrado_cart');
+    const saved = localStorage.getItem('cajueiro_cart') || localStorage.getItem('sobrado_cart');
     if (saved) {
       cart = JSON.parse(saved);
       if (!Array.isArray(cart)) cart = [];
@@ -1451,7 +1458,7 @@ function loadCart() {
 
 function saveCart() {
   try {
-    localStorage.setItem('sobrado_cart', JSON.stringify(cart));
+    localStorage.setItem('cajueiro_cart', JSON.stringify(cart));
   } catch (err) {
     console.warn('Erro ao salvar sacola no localStorage:', err);
   }
@@ -1607,10 +1614,10 @@ function renderCartDrawer() {
       itemsHTML += `
         <div class="cart-item-card">
           <img 
-            src="${item.imageUrl || 'assets/images/Logo_Sobrado.jpg'}" 
+            src="${item.imageUrl || 'assets/images/logo.jpg'}" 
             alt="${item.name}" 
             class="cart-item-thumb" 
-            onerror="this.src='assets/images/Logo_Sobrado.jpg'"
+            onerror="this.src='assets/images/logo.jpg'"
           />
           <div class="cart-item-details">
             <div class="cart-item-top">
@@ -1646,7 +1653,7 @@ function sendOrderToWhatsApp() {
     return;
   }
 
-  const restaurantPhone = window.menuData?.restaurant?.whatsapp || '5535999929454';
+  const restaurantPhone = window.menuData?.restaurant?.whatsapp || '5535991661164';
   const table = getActiveTable();
   const notes = document.getElementById('cartNotesInput')?.value.trim();
 
@@ -1722,8 +1729,8 @@ function setupCartDrawer() {
  * =====================================================================
  */
 const AdminManager = {
-  SESSION_STORAGE_KEY: 'sobrado_admin_auth',
-  LOCAL_STORAGE_PRODUCTS_KEY: 'sobrado_custom_products',
+  SESSION_STORAGE_KEY: 'cajueiro_admin_auth',
+  LOCAL_STORAGE_PRODUCTS_KEY: 'cajueiro_custom_products',
   productIdToDelete: null,
   selectedProductImageFile: null,
 
@@ -1735,7 +1742,7 @@ const AdminManager = {
   },
 
   isAdmin() {
-    return sessionStorage.getItem(this.SESSION_STORAGE_KEY) === 'true';
+    return sessionStorage.getItem(this.SESSION_STORAGE_KEY) === 'true' || sessionStorage.getItem('sobrado_admin_auth') === 'true';
   },
 
   checkSession() {
