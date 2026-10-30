@@ -41,7 +41,8 @@ const menuData = {
     { id: "porcoes", name: "Porções", icon: "zap", order: 5 },
     { id: "sobremesas", name: "Sobremesas", icon: "heart", order: 6 },
     { id: "bebidas", name: "Bebidas", icon: "award", order: 7 },
-    { id: "drinks", name: "Drinks", icon: "star", order: 8 }
+    { id: "drinks", name: "Drinks", icon: "star", order: 8 },
+    { id: "doses", name: "Doses", icon: "zap", order: 9 }
   ],
   products: [
     {
@@ -361,6 +362,51 @@ const menuData = {
         "description": "Cachaça, suco de laranja e aperol",
         "ingredients": [],
         "imageUrl": "assets/images/products/Tropicana (Drinks).webp"
+    },
+    {
+      id: "dose-cabatatu",
+      categoryId: "doses",
+      name: "Cabatatu",
+      description: "Dose especial Cabatatu",
+      price: 10.00,
+      available: true,
+      imageUrl: ""
+    },
+    {
+      id: "dose-pintada",
+      categoryId: "doses",
+      name: "Pintada",
+      description: "Dose tradicional Pintada",
+      price: 10.00,
+      available: true,
+      imageUrl: ""
+    },
+    {
+      id: "dose-caramelo",
+      categoryId: "doses",
+      name: "Caramelo",
+      description: "Dose saborizada de Caramelo",
+      price: 10.00,
+      available: true,
+      imageUrl: ""
+    },
+    {
+      id: "dose-guara",
+      categoryId: "doses",
+      name: "Guará",
+      description: "Dose artesanal Guará",
+      price: 10.00,
+      available: true,
+      imageUrl: ""
+    },
+    {
+      id: "dose-cachaca",
+      categoryId: "doses",
+      name: "Cachaça",
+      description: "Dose de Cachaça da casa",
+      price: 8.00,
+      available: true,
+      imageUrl: ""
     }
 ]
 };

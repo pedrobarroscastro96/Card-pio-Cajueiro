@@ -234,6 +234,7 @@ function getCategoryFallbackSVG(categoryId, isLarge = false) {
     case 'porcoes':
     case 'porcoes-mais-pedidas':
     case 'porcoes-individuais':
+    case 'doses':
       iconSVG = `
         <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
